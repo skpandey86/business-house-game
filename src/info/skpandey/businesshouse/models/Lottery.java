@@ -9,7 +9,7 @@ public class Lottery extends Cell {
     }
 
     /**
-     * The core game logic resides here.
+     * Lottery cell specific logic resides here.
      *
      * When the user lands on it, a defined amount, for e.g. Rs 200,
      * will be added to user's money
@@ -19,8 +19,9 @@ public class Lottery extends Cell {
      * @param bank
      */
     @Override
-    public void execute(Player player, Bank bank) {
+    public void executeCellLogic(Player player, Bank bank) {
         player.addMoney(CellType.L.getValue());
         bank.withdraw(CellType.L.getValue());
     }
+
 }

@@ -13,7 +13,8 @@ import java.util.List;
 public class Player {
 
     private final int id;
-    //private int cellPosition;
+
+    private int currentCellPosition;
     private int diceOutput;
     private int money;
     private List<Hotel> hotels = new ArrayList<>();
@@ -27,6 +28,15 @@ public class Player {
     public int getId() {
         return id;
     }
+
+    void setCurrentCellPosition() {
+        this.currentCellPosition += diceOutput;
+    }
+
+    public int getCurrentCellPosition() {
+        return currentCellPosition;
+    }
+
 
     public void setDiceOutput(int diceOutput){
         this.diceOutput = diceOutput;
@@ -44,7 +54,7 @@ public class Player {
         this.money -= amount;
     }
 
-    void addMoney(int amount){
+    public void addMoney(int amount){
         this.money += amount;
     }
 
@@ -64,5 +74,13 @@ public class Player {
             }
         }
         return totalAsset;
+    }
+
+    @Override
+    public String toString() {
+        return "Player" + id +
+                " Current Cell position " + currentCellPosition +
+                " has total money " + money +
+                " and asset of amount: " + calculateAsset() + "\n";
     }
 }

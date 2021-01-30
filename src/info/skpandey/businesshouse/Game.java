@@ -39,14 +39,19 @@ public class Game {
 
             // As list start with index 0; the index would be dice output - 1
             int cellIndex = diceOutput - 1;
+            cellIndex += player.getCurrentCellPosition();
+
+            if (cellIndex > gameBoard.getCells().size()) {
+                System.out.println("Cant play this time!");
+                break;
+            }
 
             // Finding the right cell
             Cell cell = gameBoard.getCells().get(cellIndex);
 
-            // Cell specific logic get executed
-            if (null != cell) {
-                cell.execute(player, bank);
-            }
+            // Execute the cell logic
+            cell.execute(player, bank, gameBoard.getCells().size());
+
         }
 
     }
@@ -54,16 +59,10 @@ public class Game {
 
     public String result(){
         StringBuilder result = new StringBuilder();
-        for (Player player: players){
-            result.append("Player ")
-                    .append(player.getId())
-                    .append(" has total money")
-                    .append(player.getMoney())
-                    .append(" and asset of amount : ")
-                    .append(player.calculateAsset())
-                    .append("\n");
+        for (Player player: players) {
+            result.append(player).append("\n");
         }
-        result.append("Balance at bank ").append(bank.getMoney());
+        result.append(bank);
         return result.toString();
     }
 

@@ -78,7 +78,7 @@ class GameTest {
     @DisplayName("is completed successfully")
     void verifyFinalResult(){
         // Parsing dice outputs
-        String diceOutputArray[] = DICE_OUTPUTS.split(",");
+        String[] diceOutputArray = DICE_OUTPUTS.split(",");
         int numberOfPlayers = NO_OF_PLAYERS;
         int numberOfTurn = diceOutputArray.length/numberOfPlayers;
 
@@ -90,9 +90,9 @@ class GameTest {
             int p2DiceIndex = i+1+pad;
             int p3DiceIndex = i+2+pad;
 
-            player1.setDiceOutput(Integer.valueOf(diceOutputArray[p1DiceIndex]));
-            player2.setDiceOutput(Integer.valueOf(diceOutputArray[p2DiceIndex]));
-            player3.setDiceOutput(Integer.valueOf(diceOutputArray[p3DiceIndex]));
+            player1.setDiceOutput(Integer.parseInt(diceOutputArray[p1DiceIndex]));
+            player2.setDiceOutput(Integer.parseInt(diceOutputArray[p2DiceIndex]));
+            player3.setDiceOutput(Integer.parseInt(diceOutputArray[p3DiceIndex]));
 
             // Play the game for this turn
             game.play();
@@ -117,7 +117,7 @@ class GameTest {
     void verifyFinalResultOutput(){
 
         // Parsing dice outputs
-        String diceOutputArray[] = DICE_OUTPUTS.split(",");
+        String[] diceOutputArray = DICE_OUTPUTS.split(",");
         int numberOfPlayers = NO_OF_PLAYERS;
         int numberOfTurn = diceOutputArray.length/numberOfPlayers;
 
@@ -129,9 +129,9 @@ class GameTest {
             int p2DiceIndex = i+1+pad;
             int p3DiceIndex = i+2+pad;
 
-            player1.setDiceOutput(Integer.valueOf(diceOutputArray[p1DiceIndex]));
-            player2.setDiceOutput(Integer.valueOf(diceOutputArray[p2DiceIndex]));
-            player3.setDiceOutput(Integer.valueOf(diceOutputArray[p3DiceIndex]));
+            player1.setDiceOutput(Integer.parseInt(diceOutputArray[p1DiceIndex]));
+            player2.setDiceOutput(Integer.parseInt(diceOutputArray[p2DiceIndex]));
+            player3.setDiceOutput(Integer.parseInt(diceOutputArray[p3DiceIndex]));
 
             // Play the game for this turn
             game.play();
@@ -139,11 +139,19 @@ class GameTest {
             pad += numberOfPlayers - 1;
         }
 
-        String expectedResult = "Player 1 has total money1400 and asset of amount : 1000\n" +
-                "Player 2 has total money0 and asset of amount : 0\n" +
-                "Player 3 has total money150 and asset of amount : 0\n" +
-                "Balance at bank 6450";
+        String expectedResult = "Player1 has total money 1400 and asset of amount: 1000\n" +
+                "Player2 has total money 0 and asset of amount: 0\n" +
+                "Player3 has total money 150 and asset of amount: 0\n" +
+                "Balance at bank: 6450";
         assertEquals(expectedResult, game.result());
+    }
+
+    @Test
+    @DisplayName("give bonus upon board completion")
+    void giveBonus(){
+        Game game = new Game(GameUtilities.setupGameBoard(), bank, GameUtilities.assemblePlayers(3));
+        game.play();
+        //assertEquals();
     }
 
 }

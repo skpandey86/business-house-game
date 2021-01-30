@@ -12,7 +12,7 @@ public abstract class Cell {
 
     private CellType cellType;
 
-    protected Cell(CellType cellType) {
+    Cell(CellType cellType) {
         this.cellType = cellType;
     }
 
@@ -23,8 +23,39 @@ public abstract class Cell {
     /**
      * The core game logic resides here.
      * @param player,
+     * @param bank,
+     * @param boardSize
+     */
+    public void execute(Player player, Bank bank, int boardSize) {
+        // Execute cell specific logic
+        executeCellLogic(player, bank);
+
+        // update player's cell position
+        player.setCurrentCellPosition();
+
+        // reward player if completed the board game first
+        if (player.getCurrentCellPosition() == boardSize) {
+            System.out.println("Player" + player.getId() + " has won");
+            rewardPlayer(player, bank);
+        }
+        rewardPlayer(player, bank);
+    }
+
+    /**
+     * The cell specific logic resides here.
+     * @param player,
      * @param bank
      */
-    public abstract void execute(Player player, Bank bank);
+    abstract void executeCellLogic(Player player, Bank bank);
+
+    /**
+     * Reward the player who completed first
+     * @param player
+     * @param bank
+     */
+    public void rewardPlayer(Player player, Bank bank){
+        player.addMoney(200);
+        bank.withdraw(200);
+    }
 
 }

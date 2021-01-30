@@ -19,7 +19,7 @@ public class Jail extends Cell {
      * @param bank
      */
     @Override
-    public void execute(Player player, Bank bank) {
+    void executeCellLogic(Player player, Bank bank) {
         player.deductMoney(CellType.J.getValue());
         bank.deposit(CellType.J.getValue());
     }

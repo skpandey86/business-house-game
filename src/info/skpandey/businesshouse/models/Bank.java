@@ -23,4 +23,9 @@ public class Bank {
     public int getMoney(){
         return money;
     }
+
+    @Override
+    public String toString() {
+        return "Balance at bank: " + money;
+    }
 }

@@ -65,7 +65,7 @@ public class Hotel extends Cell {
     }
 
     /**
-     * The core game logic resides here.
+     * Hotel cell specific logic resides here.
      *
      * When the player lands on it and has required money,
      * he/she has to buy it by paying the bank
@@ -75,13 +75,13 @@ public class Hotel extends Cell {
      * the user needs to upgrade hotel by paying required delta value.
      *
      * If any other user lands on a pre-owned hotel,
-     * the user needs to pay rent as per hotel     *
+     * the user needs to pay rent as per hotel
      *
      * @param player,
      * @param bank
      */
     @Override
-    public void execute(Player player, Bank bank) {
+    void executeCellLogic(Player player, Bank bank) {
         if (null != hotelOwner) {
             if (hotelOwner.getId() == player.getId()) {
                 // I own this hotel - pls upgrade

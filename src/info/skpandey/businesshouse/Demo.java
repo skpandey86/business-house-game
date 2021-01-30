@@ -26,14 +26,7 @@ public class Demo {
     public static void main(String[] args) {
 
         // 3 players starting the game with 1000 amount
-        Player player1 = new Player(1, PLAYER_INITIAL_MONEY);
-        Player player2 = new Player(2, PLAYER_INITIAL_MONEY);
-        Player player3 = new Player(3, PLAYER_INITIAL_MONEY);
-
-        List<Player> players = new ArrayList<>();
-        players.add(player1);
-        players.add(player2);
-        players.add(player3);
+        List<Player> players = GameUtilities.assemblePlayers(NO_OF_PLAYERS);
 
         // Bank with initial money
         Bank bank = new Bank(BANK_INITIAL_MONEY);
@@ -42,7 +35,8 @@ public class Demo {
 
         // Parsing dice outputs
         String diceOutputArray[] = DICE_OUTPUTS.split(",");
-        int numberOfPlayers = NO_OF_PLAYERS;
+        //int numberOfPlayers = NO_OF_PLAYERS;
+        int numberOfPlayers = players.size();
         int numberOfTurn = diceOutputArray.length/numberOfPlayers;
 
         // Play begins
@@ -50,17 +44,16 @@ public class Demo {
         for (int i=0; i<numberOfTurn; i++){
 
             int p1DiceIndex = i+pad;
-            int p2DiceIndex = i+1+pad;
-            int p3DiceIndex = i+2+pad;
-
-            player1.setDiceOutput(Integer.valueOf(diceOutputArray[p1DiceIndex]));
-            player2.setDiceOutput(Integer.valueOf(diceOutputArray[p2DiceIndex]));
-            player3.setDiceOutput(Integer.valueOf(diceOutputArray[p3DiceIndex]));
+            for (Player player: players) {
+                player.setDiceOutput(Integer.parseInt(diceOutputArray[p1DiceIndex]));
+                p1DiceIndex++;
+            }
 
             // Play the game for this turn
             game.play();
 
             pad += numberOfPlayers - 1;
+            System.out.println(players);
         }
 
         System.out.println("Its time for result : ");
